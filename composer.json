@@ -1,0 +1,49 @@
+{
+  "name": "smbear/webpower-email",
+  "description": "Use webpower send email",
+  "keywords": [
+    "webpower",
+    "email"
+  ],
+  "homepage": "https://github.com/smbear/webpower-email",
+  "license": "MIT",
+  "type": "library",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "smile",
+      "email":"ywjmylove@163.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php":"^7.4",
+    "guzzlehttp/guzzle": "^7.0.1"
+  },
+  "require-dev": {
+    "fakerphp/faker" : "^1.9.1",
+    "mockery/mockery": "^1.4.2",
+    "phpunit/phpunit": "^9.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Smbear\\WebPowerEmail\\": "src"
+    },
+
+    "files": [
+      "helper/function.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Smbear\\WebPowerEmail\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Smbear\\WebPowerEmail\\AppServiceProvider"
+      ]
+    }
+  }
+}
