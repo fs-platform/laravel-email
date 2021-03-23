@@ -16,16 +16,15 @@
 ```
 使用方法
 ```injectablephp
-use WebPower;
 
 //字符串
-WebPower::sendEmail('723891137@qq.com',[
+\WebPower::sendEmail('723891137@qq.com',[
     'body'    => view('welcome')->render(),
     'subject' => '发送'
 ]);
 
 //数组
-WebPower::sendEmail(['723891137@qq.com','723891137@qq.com'],[
+\WebPower::sendEmail(['723891137@qq.com','723891137@qq.com'],[
     'body'    => view('welcome')->render(),
     'subject' => '发送'
 ]);
