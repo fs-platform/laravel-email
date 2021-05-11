@@ -16,17 +16,21 @@
 ```
 使用方法
 ```injectablephp
-
+name和sender不是必填参数，当name会使用默认数据，将subject后添加日期作为name 当sender不填写的时候，会直接使用配置文件中的form_name
 //字符串
 \WebPower::sendEmail('723891137@qq.com',[
     'body'    => view('welcome')->render(),
-    'subject' => '发送'
+    'subject' => '发送',
+    'name'    => 'demo',
+    'sender'  => '723891137@qq.com'
 ]);
 
 //数组
 \WebPower::sendEmail(['723891137@qq.com','723891137@qq.com'],[
     'body'    => view('welcome')->render(),
-    'subject' => '发送'
+    'subject' => '发送',
+    'name'    => 'demo',
+    'sender'  => '723891137@qq.com'
 ]);
 
 ```
