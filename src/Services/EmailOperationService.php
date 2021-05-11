@@ -97,10 +97,10 @@ class EmailOperationService
     public function createTemplate(array $params) :int
     {
         $body = [
-            'name'          => $params['subject'] .':'.date('Y-m-d h:i:s', time()),
+            'name'          => $params['name'] ?? $params['subject'] .':'.date('Y-m-d h:i:s', time()),
             'lang'          => config('webpower.webpower.lang'),
             'subject'       => $params['subject'],
-            "from_name"     => config('webpower.webpower.from_name'),
+            "from_name"     => $params['sender'] ?? config('webpower.webpower.from_name'),
             "forward_id"    => config('webpower.webpower.forward_id'),
             "reply_id"      => config('webpower.webpower.reply_id'),
             "plaintext_msg" => config('webpower.webpower.plaintext_msg'),

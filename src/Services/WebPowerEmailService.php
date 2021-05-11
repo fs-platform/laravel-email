@@ -22,6 +22,14 @@ class WebPowerEmailService implements WebPowerInterfaces
             throw new EmailParamsException('参数异常');
         }
 
+        if (isset($params['name']) && (empty($params['name']) || !is_string($params['name']))){
+            unset($params['name']);
+        }
+
+        if (isset($params['sender']) && (empty($params['sender']) || !is_string($params['sender']))){
+            unset($params['sender']);
+        }
+
         if(is_array($emails)){
             foreach ($emails as $email){
                 Notification::route(EmailChannel::class,$email)->notify(new EmailNotification($params));
