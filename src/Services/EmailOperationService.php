@@ -83,6 +83,7 @@ class EmailOperationService
                 }
             }
 
+            $response->throw();
         }catch (\Exception $exception){
             throw new EmailSendException($exception->getMessage());
         }
@@ -128,6 +129,8 @@ class EmailOperationService
                     }
                 }
             }
+
+            $response->throw();
         }catch (\Exception $exception){
             throw new EmailSendException($exception->getMessage());
         }
@@ -159,6 +162,8 @@ class EmailOperationService
                     return Redis::setex(WebPowerEmailEnum::EMAIL_TOKEN_KEY,WebPowerEmailEnum::TOKEN_EXPIRE_TIME,$token);
                 }
             }
+
+            $response->throw();
         }catch (\Exception $exception){
             throw new EmailSendException($exception->getMessage());
         }
