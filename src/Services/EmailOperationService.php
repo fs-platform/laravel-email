@@ -18,7 +18,13 @@ class EmailOperationService
      */
     public function send($params,$email):bool
     {
-        $mailingId = $this->createTemplate($params);
+        $templateArray = config('power.template_id');
+
+        if (!$templateArray) {
+            $mailingId = $this->createTemplate($params);
+        } else {
+            $mailingId = $templateArray[array_rand($templateArray)];
+        }
 
         if(!$mailingId || !is_int($mailingId)){
 

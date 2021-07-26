@@ -45,5 +45,9 @@ return [
         'value'         => '',
 
         'send_url'      => ''
+    ],
+
+    'template_id' => [
+
     ]
 ];
