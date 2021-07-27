@@ -77,24 +77,6 @@ class WebPowerEmailTest extends TestCase
      * 测试邮件发送
      * @test
      */
-    public function testPublish()
-    {
-        $params = [
-            'body'     => $this->faker->randomHtml(8,10),
-            'subject'  => $this->faker->text(10)
-        ];
-
-        $id = EmailsOperationFacades::createTemplate($params);
-
-        $result = EmailsOperationFacades::publish($this->email,$id);
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * 测试邮件发送
-     * @test
-     */
     public function testSend()
     {
         $params = [

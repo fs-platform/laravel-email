@@ -157,11 +157,6 @@ class EmailOperationService
 
             $response->throw();
         } catch (\Throwable $e) {
-            $code = $e->getCode();
-            //当前联系人已经在第三方创建
-            if (in_array($code, [409])) {
-                return true;
-            }
             return false;
         }
     }
