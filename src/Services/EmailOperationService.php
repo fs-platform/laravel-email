@@ -116,7 +116,7 @@ class EmailOperationService
     protected function sendEmailByLargeField(string $email, int $mailingId, array $params = []): bool
     {
         $content = $params['body'] ?? '';
-        $title = $params['name'] ?? $params['subject'] . ':' . date('Y-m-d h:i:s', time());
+        $title = $params['subject'];
         $sender = $params['sender'] ?? config('webpower.webpower.from_name');
         $body = [
             "mailingId" => $mailingId,
