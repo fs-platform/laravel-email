@@ -2,49 +2,52 @@
 
 return [
     'token' => [
-        'oath_token_url'   => '',
+        'oath_token_url' => '',
 
-        'client_id'        => '',
+        'client_id' => '',
 
-        'client_secret'    => '',
+        'client_secret' => '',
 
-        'email_contact_url'=> '',
+        'email_contact_url' => '',
 
-        'grant_type'       => '',
+        'grant_type' => '',
 
-        'scope'            => ''
+        'scope' => ''
     ],
 
     'queue' => [
-        'queue'      => '',
+        'queue' => '',
 
         'connection' => '',
 
-        'timeout '   => '',
+        'timeout ' => '',
 
-        'tries'      => '',
+        'tries' => '',
 
-        'sleep'      => ''
+        'sleep' => ''
     ],
 
     'webpower' => [
-        'from_name'     => '',
+        'from_name' => '',
 
-        'forward_id'    => '',
+        'forward_id' => '',
 
-        'reply_id'      => '',
+        'reply_id' => '',
 
-        'lang'          => '',
+        'lang' => '',
 
         'plaintext_msg' => '',
 
-        'request_url'   => '',
-		
-        'field'         => '',
+        'request_url' => '',
 
-        'value'         => '',
+        'field' => '',
 
-        'send_url'      => ''
+        'value' => '',
+
+        'send_url' => '',
+        'group' => [
+
+        ]
     ],
 
     'template_id' => [
