@@ -19,8 +19,8 @@ class EmailOperationService
     public function send($params, $email): bool
     {
         $templateArray = config('webpower.template_id');
-
-        if (!$templateArray) {
+        $isUseLargeFiled = config('webpower.webpower.isUseLargeFiled');
+        if (!$templateArray || !$isUseLargeFiled) {
             $mailingId = $this->createTemplate($params);
         } else {
             $mailingId = $templateArray[array_rand($templateArray)];
@@ -30,8 +30,11 @@ class EmailOperationService
 
             throw new EmailSendException('邮件模板id 获取异常');
         }
-
-        $result = $this->publish($email, $mailingId);
+        if ($isUseLargeFiled) {
+            $result = $this->sendEmailByLargeField($email, $mailingId, $params);
+        } else {
+            $result = $this->sendEmailByCreateTemplate($email, $mailingId);
+        }
 
         if (!$result) {
             throw new EmailSendException('邮件发送异常');
@@ -40,14 +43,19 @@ class EmailOperationService
         return true;
     }
 
+
     /**
-     * 根据email 和 mailingId 发布邮件
+     * Notes: 每次发送邮件创建模版
+     *
+     * author: Aron.Yao
+     * Date: 2021/7/27
+     * Time: 5:12 下午
      * @param string $email
      * @param int $mailingId
      * @return bool
      * @throws EmailSendException
      */
-    public function publish(string $email, int $mailingId): bool
+    protected function sendEmailByCreateTemplate(string $email, int $mailingId): bool
     {
         $contacts = [
             [
@@ -92,6 +100,69 @@ class EmailOperationService
             $response->throw();
         } catch (\Exception $exception) {
             throw new EmailSendException($exception->getMessage());
+        }
+    }
+
+    /**
+     * Notes: 根据大字段发送邮件
+     *
+     * author: Aron.Yao
+     * Date: 2021/7/27
+     * Time: 5:29 下午
+     * @param string $email
+     * @param int $mailingId
+     * @param array $params
+     */
+    protected function sendEmailByLargeField(string $email, int $mailingId, array $params = []): bool
+    {
+        $content = $params['body'] ?? '';
+        $title = $params['name'] ?? $params['subject'] . ':' . date('Y-m-d h:i:s', time());
+        $sender = $params['sender'] ?? config('webpower.webpower.from_name');
+        $body = [
+            "mailingId" => $mailingId,
+            "attachments" => [],
+            "contact" => [
+                "email" => $email,
+                "mobile_nr" => "",
+                "lang" => "cn",
+                "custom" => [
+                    [
+                        "field" => "mail_subject",
+                        "value" => $title,
+                    ],
+                    [
+                        "field" => "sender_name",
+                        "value" => $sender,
+                    ],
+                ],
+            ],
+            "overrideDuplicateAndSend" => true,
+            "extraContactData" => array(array("field" => 'DMD_extra1', "value" => $content))
+        ];
+        try {
+            $token = $this->getMailToken();
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => $token
+               ])->timeout(30)
+                ->withBody(json_encode($body), 'raw')
+                ->post(config('webpower.webpower.send_large_url'));
+            if ($response->successful()) {
+                $response = $response->json();
+                if (!empty($response) && is_array($response)) {
+                    return true;
+                }
+            }
+
+            $response->throw();
+        } catch (\Throwable $e) {
+            $code = $e->getCode();
+            //当前联系人已经在第三方创建
+            if (in_array($code, [409])) {
+                return true;
+            }
+            return false;
         }
     }
 
@@ -174,6 +245,7 @@ class EmailOperationService
             throw new EmailSendException($exception->getMessage());
         }
     }
+
 
     /**
      * 获取到邮件发送的token
