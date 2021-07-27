@@ -47,7 +47,9 @@ return [
         'send_url' => '',
         'group' => [
 
-        ]
+        ],
+        'isUseLargeFiled' => true,
+        'send_large_url' => ''
     ],
 
     'template_id' => [
