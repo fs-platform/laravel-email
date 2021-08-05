@@ -12,13 +12,13 @@ class WebPowerEmailTest extends TestCase
 {
     use WithFaker;
 
-    public string $email = '723891137@qq.com';
+    public string $email = 'ywjmylove@163.com';
 
     public function testSendEmail()
     {
         $email = $this->email;
 
-        for($i =0; $i< 10;$i++){
+        for($i =0; $i<10;$i++){
             $emails[] = $this->email;
         }
 

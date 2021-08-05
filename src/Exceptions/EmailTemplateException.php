@@ -2,10 +2,10 @@
 
 namespace Smbear\WebPowerEmail\Exceptions;
 
-class EmailSendException extends \Exception
+class EmailTemplateException extends \Exception
 {
     public function __toString(): string
     {
-      return $this->getMessage();
+        return $this->getMessage();
     }
 }

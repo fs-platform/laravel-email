@@ -11,12 +11,18 @@ use Smbear\WebPowerEmail\Notifications\EmailNotification;
 class WebPowerEmailService implements WebPowerInterfaces
 {
     /**
-     * 发送邮件
-     * @param string $emails
+     * @Notes:发送邮件
+     *
+     * @param $emails
      * @param array $params
+     * @return bool
      * @throws EmailParamsException
+     * @throws \Throwable
+     * @Author: smile
+     * @Date: 2021/8/4
+     * @Time: 20:08
      */
-    public function sendEmail($emails,array $params)
+    public function sendEmail($emails, array $params): bool
     {
         if (!custom_array_key($params,'body,subject',true)){
             throw new EmailParamsException('参数异常');
@@ -39,5 +45,7 @@ class WebPowerEmailService implements WebPowerInterfaces
         if(is_string($emails)){
             Notification::route(EmailChannel::class,$emails)->notify(new EmailNotification($params));
         }
+
+        return true;
     }
 }

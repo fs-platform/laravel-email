@@ -15,6 +15,8 @@ return [
         'scope' => ''
     ],
 
+    'channel' => '',
+
     'queue' => [
         'queue' => '',
 
@@ -45,10 +47,13 @@ return [
         'value' => '',
 
         'send_url' => '',
+
         'group' => [
 
         ],
-        'isUseLargeFiled' => true,
+
+        'is_use_large_filed' => true,
+
         'send_large_url' => ''
     ],
 

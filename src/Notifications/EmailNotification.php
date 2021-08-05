@@ -3,8 +3,8 @@
 namespace Smbear\WebPowerEmail\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Smbear\WebPowerEmail\Channels\EmailChannel;
 use Smbear\WebPowerEmail\Exceptions\EmailSendException;
 use Smbear\WebPowerEmail\Facades\EmailsOperationFacades;

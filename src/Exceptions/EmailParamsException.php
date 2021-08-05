@@ -2,12 +2,10 @@
 
 namespace Smbear\WebPowerEmail\Exceptions;
 
-use Exception;
-
-class EmailParamsException extends Exception
+class EmailParamsException extends \Exception
 {
-    public function __construct(string $message = "",int $code = 500)
+    public function __toString(): string
     {
-        parent::__construct($message, $code);
+        return $this->getMessage();
     }
 }
