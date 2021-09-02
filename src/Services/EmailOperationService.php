@@ -245,13 +245,12 @@ class EmailOperationService
     /**
      * @Notes:获取到token
      *
-     * @return bool
      * @throws EmailTokenException
      * @Author: smile
      * @Date: 2021/8/4
      * @Time: 19:26
      */
-    public function requestAccessMailToken(): bool
+    public function requestAccessMailToken()
     {
         $params = [
             'grant_type'    => config('webpower.token.grant_type'),
@@ -271,7 +270,7 @@ class EmailOperationService
                 if (!empty($response) && is_array($response)) {
                     $token = $response['access_token'];
 
-                    return Redis::setex(WebPowerEmailEnum::EMAIL_TOKEN_KEY, WebPowerEmailEnum::TOKEN_EXPIRE_TIME, $token);
+                    Redis::setex(WebPowerEmailEnum::EMAIL_TOKEN_KEY, WebPowerEmailEnum::TOKEN_EXPIRE_TIME, $token);
                 }
             }
 
