@@ -55,12 +55,12 @@ class EmailOperationService
         }catch (\Throwable $exception){
             if ($exception instanceof EmailSendException && $exception->getCode() == 409) {
                 Log::channel('webpower')
-                    ->emergency('模板获取id 获取异常'.$exception->getMessage());
+                    ->emergency('邮箱:'.$email.' 模板获取id 获取异常 :'.$exception->getMessage());
 
                 return true;
             } else {
                 Log::channel('webpower')
-                    ->emergency('邮件发送异常'.$exception->getMessage());
+                    ->emergency('邮箱:'.$email.' 邮件发送异常:'.$exception->getMessage());
 
                 throw $exception;
             }
