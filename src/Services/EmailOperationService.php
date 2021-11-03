@@ -114,11 +114,13 @@ class EmailOperationService
                 ->post(config('webpower.webpower.send_url'));
 
             if ($response->successful()) {
-                $response = $response->json();
+                $data = $response->json();
 
-                if (!empty($response) && is_array($response)) {
+                if (!empty($data) && is_array($data)) {
                     return true;
                 }
+
+                return false;
             }
 
             $response->throw();
@@ -181,11 +183,13 @@ class EmailOperationService
                 ->post(config('webpower.webpower.send_large_url'));
 
             if ($response->successful()) {
-                $response = $response->json();
+                $data = $response->json();
 
-                if (!empty($response) && is_array($response)) {
+                if (!empty($data) && is_array($data)) {
                     return true;
                 }
+
+                return false;
             }
 
             $response->throw();
@@ -226,12 +230,12 @@ class EmailOperationService
                 ->post(config('webpower.webpower.request_url'));
 
             if ($response->successful()) {
-                $response = $response->json();
+                $data = $response->json();
 
-                if (!empty($response) && is_array($response)) {
+                if (!empty($data) && is_array($data)) {
 
-                    if (isset($response['id']) && is_int($response['id'])) {
-                        return $response['id'];
+                    if (isset($data['id']) && is_int($data['id'])) {
+                        return $data['id'];
                     }
                 }
             }
@@ -265,10 +269,10 @@ class EmailOperationService
                 ->post(config('webpower.token.oath_token_url'), $params);
 
             if ($response->successful()) {
-                $response = $response->json();
+                $data = $response->json();
 
-                if (!empty($response) && is_array($response)) {
-                    $token = $response['access_token'];
+                if (!empty($data) && is_array($data)) {
+                    $token = $data['access_token'];
 
                     Redis::setex(WebPowerEmailEnum::EMAIL_TOKEN_KEY, WebPowerEmailEnum::TOKEN_EXPIRE_TIME, $token);
                 }
